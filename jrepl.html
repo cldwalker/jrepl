@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>jrepl</title>
+    <link href='jquery.repl.css' rel='stylesheet' type='text/css'>
+    <link href="jquery-ui.css" rel="stylesheet" type="text/css"/>
+    <script src='jquery.min.js' type='text/javascript'></script>
+    <script src='jquery.hotkeys.js' type='text/javascript'></script>
+    <script src="jquery-ui-autocomplete.min.js"></script>
+    <script src='jquery.readline.js' type='text/javascript'></script>
+    <script src='jquery.repl.js' type='text/javascript'></script>
+    <script type='text/javascript'>
+      $(document).ready( function(){
+        var jrepl = function(input) {
+          try { var result = eval(input); }
+          catch(e) { var result = e.name + ': '+ e.message; }
+          if (typeof(result) == 'undefined') {
+            result = 'undefined';
+          } else {
+            result = result ? result.toString() : '';
+            result = $('<div/>').text(result).html();
+          }
+          $.repl.logResult(result);
+        };
+
+        $('#input').readline().repl({
+          eval: function(val) {
+            $.readline.addHistory(val);
+            jrepl(val);
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id='screen'></div>
+    <form>
+      <input id='input' type='text'>
+    </form>
+  </body>
+</html>
