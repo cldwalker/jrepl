@@ -2,12 +2,23 @@
   var screen, input, spinner_id;
   var spinner = "<div id='%s' style='background: url(spinner.gif) no-repeat 0 center; "+
     "vertical-align: middle;'> &nbsp;</div>";
+  var jeval = function(input) {
+    try { var result = eval(input); }
+    catch(e) { var result = e.name + ': '+ e.message; }
+    if (typeof(result) == 'undefined') {
+      result = 'undefined';
+    } else {
+      result = result ? result.toString() : '';
+      result = $('<div/>').text(result).html();
+    }
+    return result;
+  };
 
   $.fn.repl = function(options) {
     options = $.extend({
       screen: '#screen',
       prompt: '&gt;&gt; ',
-      eval: function(val) {},
+      loop: function(line) { $.repl.logResult(jeval(line)); },
       keys: true
     }, options);
     input = $(this);
@@ -23,9 +34,9 @@
 
     input.focus();
     input.parent('form').submit(function() {
-      var value = input.val();
-      $.repl.log(options.prompt + value + spinner);
-      options.eval(value);
+      var line = input.val();
+      $.repl.log(options.prompt + line + spinner);
+      options.loop(line);
       input.val("").focus();
       return false;
     });
@@ -45,6 +56,7 @@
     logResult: function(str) {
       $('#'+spinner_id).remove();
       $.repl.log(str);
-    }
+    },
+    eval: jeval
   };
 })(jQuery);
