@@ -1,6 +1,6 @@
 (function($) {
   var screen, input, spinner_id;
-  var spinner = "<div id='%s' style='background: url(spinner.gif) no-repeat 0 center; "+
+  var spinner = "<div id='%s' style='background: url(%i) no-repeat 0 center; "+
     "vertical-align: middle;'> &nbsp;</div>";
   var jeval = function(input) {
     try { var result = eval(input); }
@@ -19,12 +19,14 @@
       screen: '#screen',
       prompt: '&gt;&gt; ',
       loop: function(line) { $.repl.logResult(jeval(line)); },
-      keys: true
+      keys: true,
+      spinner: 'spinner.gif'
     }, options);
     input = $(this);
     screen = $(options.screen);
     spinner_id = (this.selector + '_spinner').replace('#', '');
     spinner = spinner.replace('%s', spinner_id);
+    spinner = spinner.replace('%i', options.spinner);
 
     var prompt_id = (this.selector + '_prompt').replace('#', '');
     if (!$(prompt_id).length) {
