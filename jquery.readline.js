@@ -64,7 +64,11 @@
       bind('keydown', 'ctrl+g', exit_search_history).
       bind('keydown', 'ctrl+u', clear_line).
       bind('keydown', 'tab', tab_complete).
-      autocomplete({ source: autocomplete_history_source, disabled: true }).
+      autocomplete({
+        source: autocomplete_history_source,
+        disabled: true,
+        close: function(event, ui) { exit_search_history(); return true; }
+      }).
       before('<span id="'+options.prompt_id.replace('#', '')+'"></span>');
 
     input_prompt = $(options.prompt_id);
