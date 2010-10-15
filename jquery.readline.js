@@ -47,9 +47,13 @@
     options = $.extend({
       prompt_id: this.selector + '_prompt',
       startCompletion: function(val) {},
+      autocomplete_css: 'jquery.ui.autocomplete.css',
+      readline_css: 'jquery.readline.css'
     }, options);
     input = $(this);
     startCompletion = options.startCompletion;
+    $('head').append("<link href='"+options.autocomplete_css+"' rel='stylesheet' type='text/css'/>").
+      append("<link href='"+options.readline_css+"' rel='stylesheet' type='text/css'/>");
 
     input.
       bind('keydown', 'ctrl+p', previous_line).
