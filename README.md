@@ -23,6 +23,7 @@ Todo
 More js shells
 ==============
 
+* [jsconsole](http://jsconsole.com/): nice looking, history gets pushed down
 * [jash](http://www.billyreisinger.com/jash/): old school but with completion
 * [jquery-console](https://github.com/jaz303/jquery-console): simple console invoked with a bookmarklet
 * [squarefree shell](https://www.squarefree.com/shell/): old school shell with bookmarklet + completion
